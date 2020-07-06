@@ -8,15 +8,25 @@
 <body>
     <div class="toolbar">
         <div class="home-button">
-            <button class="home">Home</button>
+            <form method="get" action="home.html">
+                <button class="home">Home</button>
+            </form>
         </div>
         <div class="title">
-            <button>Nova</button>
+            <form method="get" action="home.html">
+                <button>Nova</button>
+            </form>
         </div>
+        
         <div class="sign-buttons">
-            <button class="sign-up">Sign Up</button>
-            <button class="sign-in">Sign In</button>
+            <form method="get" action="src/signup.html">
+                <button class="sign-up">Sign Up</button>
+            </form>
+            <form method="get" action="src/signin.html">
+                <button class="sign-in">Sign In</button>
+            </form>
         </div>
+        
     </div>
 
     <div class="search">
@@ -25,5 +35,10 @@
     <div class="flex-columns">
 
     </div>
+
+
+
+</div> 
+<script src="src/app.js"></script>
 </body>
 </html>
