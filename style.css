@@ -485,8 +485,41 @@
     width: 100%;
     height: 100%;
     max-width: 205vh;
-    max-height: 80vh;
+    max-height: 70vh;
     border: 1px dotted black;
     display: flex;
     justify-content: center;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.input5:hover {
+    display: flex;
+    justify-content: center;
+}
+
+.signup-form {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-self: center;
+    max-width: 205vh;
+    max-height: 70vh;
+    width: 60%;
+    height: 50%;
+}
+
+.signup {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    border: solid 1px gray;
+    max-width: 205vh;
+    max-height: 70vh;
+    width: 60%;
+    height: 50%;
+    align-self: center;
 }
