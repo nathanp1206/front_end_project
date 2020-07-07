@@ -4,26 +4,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova</title>
     <link rel="stylesheet" href="style.css"/>  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="toolbar">
         <div class="home-button">
-            <button class="home">Home</button>
+            <form method="get" action="home.html">
+                <button class="home">Home</button>
+            </form>
         </div>
         <div class="title">
-            <button>Nova</button>
+            <form method="get" action="home.html">
+                <button>Nova</button>
+            </form>
         </div>
+        
         <div class="sign-buttons">
-            <button class="sign-up">Sign Up</button>
-            <button class="sign-in">Sign In</button>
+            <form method="get" action="src/signup.html">
+                <button class="sign-up">Sign Up</button>
+            </form>
+            <form method="get" action="src/signin.html">
+                <button class="sign-in">Sign In</button>
+            </form>
         </div>
+        
     </div>
 
     <div class="search">
-
+        <form class="search-form" method="get" action="src/map.html">
+            <input class="input1" type="tel" placeholder=" Only zip codes" max="5" name="search"/> 
+            <button class="input" type="submit"><i class="fa fa-search"></i></button>
+        </form>
     </div>
     <div class="flex-columns">
-
+        <div class="columns">
+            <div class="text-flex">
+                Search by Crime
+            </div>
+            <div class="picture">
+                <img class="image1" src="images/crime.png" alt="Crime">
+            </div>
+        </div>
+        <div class="columns">
+            <div class="text-flex">
+                Search by Price
+            </div>
+            <div class="picture">
+                <img class="image2" src="images/price.png" alt="Price">
+            </div>
+        </div>
+        <div class="columns">
+            <div class="text-flex">
+                Search by Education
+            </div>
+            <div class="picture">
+                <img class="image3" src="images/edu.png" alt="Education">
+            </div>
+        </div>
     </div>
+    <script src="src/app.js"></script>
 </body>
 </html>
