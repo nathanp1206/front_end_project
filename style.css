@@ -27,7 +27,7 @@
     color: #222; 
     padding: 2% 0% 0% 0%;
     height: 100%;
-    max-height: 100vh;
+    max-height: 93vh;
 }
   
   
@@ -486,7 +486,7 @@
     height: 100%;
     max-width: 205vh;
     max-height: 70vh;
-    border: 1px dotted black;
+    /* border: 1px dotted black; */
     display: flex;
     justify-content: center;
 }
@@ -516,10 +516,19 @@
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
-    border: solid 1px gray;
+    /* border: solid 1px gray; */
     max-width: 205vh;
     max-height: 70vh;
     width: 60%;
     height: 50%;
     align-self: center;
+}
+
+.sign {
+  background-color: rgba(175, 173, 173, 0.438);
+  color: black;
+}
+
+.sign:hover {
+  color: white;
 }
