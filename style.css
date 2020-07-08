@@ -367,6 +367,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0% 10% 0% 10%;
+    margin-top: 2%;
   }
 
   .sign-buttons {
