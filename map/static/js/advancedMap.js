@@ -65,8 +65,6 @@ d3.json(link, function(data) {
 var link = "static/data/crime_data.csv"
 
 d3.csv(link, function(crimes) {
-
-    console.log(crimes);
   
     var heatArray = [];
   
@@ -103,17 +101,13 @@ const filterData = (data) => {
     var masterSchoolList = []
     data.forEach((datum) => {
         masterSchoolList = [...masterSchoolList, ...datum.schoolList]
-        console.log(datum)
     })
-    console.log(masterSchoolList)
     buildEdLayer(masterSchoolList)
     // edData = masterSchoolList
 }
 
 const buildEdLayer = (edData) => {
-  console.log("here")
   let edMarkers = L.markerClusterGroup();
-  console.log("here")
     edData.forEach((school, i) => {
         if (school.address.latLong.latitude && school.address.latLong.longitude) {
             let ed_lat = school.address.latLong.latitude; 
