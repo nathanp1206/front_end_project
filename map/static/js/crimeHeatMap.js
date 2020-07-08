@@ -15,7 +15,7 @@ var myMap = L.map("map", {
 
 
 var link = "static/data/crime_data.csv"
-
+// heat is low, can add more crime when I have a chance. 
 d3.csv(link, function(crimes) {
 
     console.log(crimes);

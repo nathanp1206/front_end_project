@@ -1,6 +1,6 @@
 
 var myMap = L.map("map", {
-    center: [33.7490, 84.3880],
+    center: [33.7490, -84.3880],
     zoom: 11
 });
   
@@ -14,34 +14,89 @@ var myMap = L.map("map", {
     accessToken: API_KEY
   }).addTo(myMap);
 
+//  map loading... 
+var edData
+const filterData = (data) => {
+    // let masterSchoolList = data.map(datum => datum.schoolList)
+    var masterSchoolList = []
+    data.forEach((datum) => {
+        masterSchoolList = [...masterSchoolList, ...datum.schoolList]
+        console.log(datum)
+    })
+    console.log(masterSchoolList)
+    edData = masterSchoolList
+}
 
-
-const fetchSchools = () => {
-    var template = '{"schools":[' +
-    ']}';
-    var data = JSON.parse(template);
+const fetchSchools2 = () => {
     pages = [1, 2, 3, 4, 5]
-    var result
+    let promises = []
     pages.forEach((page) => {
         url = `https://api.schooldigger.com/v1.2/schools?st=GA&city=Atlanta&page=${page}&perPage=50&appID=1a0adc5f&appKey=${SCHOOL_KEY}`
-        fetch(url)
-        .then(response => response.json())
-        .then((jData => {
-            // console.log(jData)
-            result = jData
-            result.schoolList.forEach((school) => {
-                //parse the JSON
-                data.schools.push(school)
-                // let ed_lat = school.address.latLong.latitude; 
-                // let ed_lng = school.address.latLong.longitude;
-                // L.marker([ed_lat, ed_lng]).addTo(myMap);
-            })
-        }))
-        .catch(err => (console.log(err)))
+        promises.push(fetch(url).then(resp => resp.json()))
     })
-    return data
+    Promise.all(promises)
+    .then(filterData)
 }
-data = fetchSchools()
+fetchSchools2()
+const buildEdLayer = (edData) => {
+    edData.forEach((school, i) => {
+        if (school.address) {
+            let ed_lat = school.address.latLong.latitude; 
+            let ed_lng = school.address.latLong.longitude;
+            L.marker([ed_lat, ed_lng]).bindPopup(school.schoolName).addTo(myMap);
+        }
+})}
+// buildEdLayer(edData)
+
+
+
+
+
+// const fetchSchools = () => {
+//     var template = '{"schools":[' +
+//     ']}';
+//     var data = JSON.parse(template);
+//     pages = [1, 2, 3, 4, 5]
+//     var result
+//     pages.forEach((page) => {
+//         url = `https://api.schooldigger.com/v1.2/schools?st=GA&city=Atlanta&page=${page}&perPage=50&appID=1a0adc5f&appKey=${SCHOOL_KEY}`
+//         fetch(url)
+//         .then(response => response.json())
+//         .then((jData => {
+//             // console.log(jData)
+//             result = jData
+//             result.schoolList.forEach((school) => {
+//                 //parse the JSON
+//                 data.schools.push(school)
+//                 // let ed_lat = school.address.latLong.latitude; 
+//                 // let ed_lng = school.address.latLong.longitude;
+//                 // L.marker([ed_lat, ed_lng]).addTo(myMap);
+//             })
+//         }))
+//         .catch(err => (console.log(err)))
+//     })
+//     return data
+// }
+// data = fetchSchools()
+
+// const fetchSchools2 = () => {
+//     var template = '{"schools":[' +
+//     ']}';
+//     var data = JSON.parse(template);
+//     // pages = [1, 2, 3, 4, 5]
+//     // var result
+//     pages.forEach((page) => {
+//         url = `https://api.schooldigger.com/v1.2/schools?st=GA&city=Atlanta&page=${page}&perPage=50&appID=1a0adc5f&appKey=${SCHOOL_KEY}`
+//         fetch(url)
+//         .then(response => {
+//             return response.json()
+//         }
+//         .catch(err => console.log(err))
+//         )}}
+//     return data
+// }
+
+
 // var link = "static/data/crime_data.csv"
 
 // d3.csv(link, function(crime) {
@@ -59,13 +114,18 @@ data = fetchSchools()
 // data = fetchSchools()
 // console.log(data)
 
+
+// ONLY adds first 125, then stops. debug with clint in the morning
+//  also figure out how to get this to run automatically, definitely has to do with promise
 // for (var i = 0; i < data.schools.length; i++) {
 //     if (data.schools[i].address) {
 //         var ed_lat = data.schools[i].address.latLong.latitude;
 //         var ed_lng = data.schools[i].address.latLong.longitude;
+//         console.log(`School ${i} did have address`)
 //     }
-//     console.log(i)
+//     else {console.log(`School ${i} did not have address`)}
 //     // var ranking
 //     var type = data.schools[i].schoolLevel
 //     L.marker([ed_lat, ed_lng]).addTo(myMap);
 //   }
+// add event listener to each marker

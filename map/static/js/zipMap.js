@@ -16,7 +16,7 @@ var myMap = L.map("map", {
   
   // Use this link to get the geojson data.
   // var link = "static/data/atlanta.geojson";
-  var link = "static/data/zips.geojson"
+  var link = "static/data/smaller_map.geojson"
 
   // Our style object
 var mapStyle = {

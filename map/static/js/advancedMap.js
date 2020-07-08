@@ -1,6 +1,6 @@
 // Creating map object
 var myMap = L.map("map", {
-  center: [33.7490, 84.3880],
+  center: [33.7490, -84.3880],
   zoom: 11
 });
 
@@ -16,7 +16,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 // Use this link to get the geojson data.
   // var link = "static/data/atlanta.geojson";
-  var link = "static/data/zips.geojson"
+  var link = "static/data/smaller_map.geojson"
 
 
 // Grabbing our GeoJSON data..
@@ -71,47 +71,176 @@ d3.csv(link, function(crimes) {
     var heatArray = [];
   
     for (var i = 0; i < crimes.length; i++) {
-        var lat = crimes[i].Latitude;
-        var lng = crimes[i].Longitude;
-  
+        // var lat = crimes[i].Latitude;
+        // var lng = crimes[i].Longitude;
+
       if (crimes[i]) {
         heatArray.push([crimes[i].Latitude, [crimes[i].Longitude]]);
       }
     }
   
     var heat = L.heatLayer(heatArray, {
-      radius: 20,
+      radius: 20, 
       blur: 35
     }).addTo(myMap);
   
   });
-
-const fetchSchools = () => {
-  var template = '{"schools":[' +
-  ']}';
-  var data = JSON.parse(template);
-  pages = [1, 2, 3, 4, 5]
-  var result
-  pages.forEach((page) => {
-      url = `https://api.schooldigger.com/v1.2/schools?st=GA&city=Atlanta&page=${page}&perPage=50&appID=1a0adc5f&appKey=${SCHOOL_KEY}`
-      fetch(url)
-      .then(response => response.json())
-      .then((jData => {
-          // console.log(jData)
-          result = jData
-          result.schoolList.forEach((school) => {
-              //parse the JSON
-              data.schools.push(school)
-              // let ed_lat = school.address.latLong.latitude; 
-              // let ed_lng = school.address.latLong.longitude;
-              // L.marker([ed_lat, ed_lng]).addTo(myMap);
-          })
-      }))
-      .catch(err => (console.log(err)))
-  })
-  return data
+  const fetchSchools2 = () => {
+    pages = [1, 2, 3, 4, 5]
+    let promises = []
+    pages.forEach((page) => {
+        url = `https://api.schooldigger.com/v1.2/schools?st=GA&city=Atlanta&page=${page}&perPage=50&appID=1a0adc5f&appKey=${SCHOOL_KEY}`
+        promises.push(fetch(url).then(resp => resp.json()))
+    })
+    Promise.all(promises)
+      //  map loading... 
+    .then(filterData)
 }
-data = fetchSchools()
+
+// var edData
+const filterData = (data) => {
+    // let masterSchoolList = data.map(datum => datum.schoolList)
+    var masterSchoolList = []
+    data.forEach((datum) => {
+        masterSchoolList = [...masterSchoolList, ...datum.schoolList]
+        console.log(datum)
+    })
+    console.log(masterSchoolList)
+    buildEdLayer(masterSchoolList)
+    // edData = masterSchoolList
+}
+
+const buildEdLayer = (edData) => {
+  console.log("here")
+  let edMarkers = L.markerClusterGroup();
+  console.log("here")
+    edData.forEach((school, i) => {
+        if (school.address.latLong.latitude && school.address.latLong.longitude) {
+            let ed_lat = school.address.latLong.latitude; 
+            let ed_lng = school.address.latLong.longitude;
+            // console.log(i)
+            edMarkers.addLayer(L.marker([ed_lat, ed_lng])
+              .bindPopup(school.schoolName));
+            // L.marker([ed_lat, ed_lng]).bindPopup(school.schoolName).addTo(myMap);
+        }
+      })
+    // Add our marker cluster layer to the map
+    // console.log("here")
+    myMap.addLayer(edMarkers);
+}
+
+fetchSchools2()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const fetchSchools = () => {
+//   var template = '{"schools":[' +
+//   ']}';
+//   var data = JSON.parse(template);
+//   pages = [1, 2, 3, 4, 5]
+//   var result
+//   pages.forEach((page) => {
+//       url = `https://api.schooldigger.com/v1.2/schools?st=GA&city=Atlanta&page=${page}&perPage=50&appID=1a0adc5f&appKey=${SCHOOL_KEY}`
+//       fetch(url)
+//       .then(response => response.json())
+//       .then((jData => {
+//           // console.log(jData)
+//           result = jData
+//           result.schoolList.forEach((school, i) => {
+//               //parse the JSON
+//               data.schools.push(school)
+//               // console.log(school)
+
+
+//               // SOLUTION
+//               // check to see if in map already, if so, don't add
+
+
+//               if (school.address) {
+//                   let ed_lat = school.address.latLong.latitude;
+//                   let ed_lng = school.address.latLong.longitude;
+//                   // L.marker([ed_lat, ed_lng]).addTo(myMap);
+//                   L.marker([ed_lat, ed_lng]).bindPopup(school.schoolName).addTo(myMap);
+//                   // console.log(`School ${i} did have address`)
+//                   }
+//               else {
+//                 // console.log(`School ${i} did not have address`)
+//               }
+//           })
+//       }))
+//       .catch(err => (console.log(err)))
+//   })
+//   return data
+// }
+// data = fetchSchools()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// console.log(data.length)
+// for (var i = 0; i < data.schools.length; i++) {
+//   if (data.schools[i].address) {
+//       var ed_lat = data.schools[i].address.latLong.latitude;
+//       var ed_lng = data.schools[i].address.latLong.longitude;
+//       console.log(`School ${i} did have address`)
+//   }
+//   else {console.log(`School ${i} did not have address`)}
+//   // var ranking
+//   var type = data.schools[i].schoolLevel
+//   L.marker([ed_lat, ed_lng]).addTo(myMap);
+// }
 
 // import schooFetch from "./schooldiggerFetch.js"
 // schoolData = schooFetch()
