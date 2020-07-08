@@ -1,5 +1,4 @@
 import { tripAdv, proxy } from "../config.js"
-
 let myHeaders = new Headers();
 	myHeaders.append("x-rapidapi-host", tripAdv.host);
 	myHeaders.append("x-rapidapi-key", tripAdv.key);
