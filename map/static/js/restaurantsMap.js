@@ -53,23 +53,22 @@
 //     shape: "star"
 //   })
 // };
-
-// import { tripAdv, proxy } from "../config.js"
-let myHeaders = new Headers();
-  myHeaders.append("x-rapidapi-host", tripAdv.host);
-  myHeaders.append("x-rapidapi-key", tripAdv.key);
-  myHeaders.append("content-type", "application/x-www-form-urlencoded");
-let urlencoded = new URLSearchParams();
-  urlencoded.append("limit", "30");
-  urlencoded.append("language", "en_US");
-  urlencoded.append("location_id", "60898");
-  urlencoded.append("currency", "USD");
-let requestOptions = {
+var myHeaders = new Headers();
+myHeaders.append("user-key", "3c7a19a78d878ca6c59b57c6356f8079");
+myHeaders.append("Cookie", "csrf=e0c7a41a1be1813ae09a360d28ff880a; fbcity=1; zl=en; fbtrack=f0655d24fe51c0b33e9cc923addffec8; AWSALBTG=YE+F6XE+aO9TQs4LZXbFlHHSUWiYBmyyVfDquG5KCR5Gpez/YrwN++plV8CZJDCl/S5YOcJ5YqHilMGdO1CV2Ot3kJz4lLmHqwaaMb8htiL5qp6JEe1u/ADmemL20J7YU9kkrR/uGiDegUfOrGbB6Ygfq7pfSi/lWput0KEdBStkEnTJFE8=; AWSALBTGCORS=YE+F6XE+aO9TQs4LZXbFlHHSUWiYBmyyVfDquG5KCR5Gpez/YrwN++plV8CZJDCl/S5YOcJ5YqHilMGdO1CV2Ot3kJz4lLmHqwaaMb8htiL5qp6JEe1u/ADmemL20J7YU9kkrR/uGiDegUfOrGbB6Ygfq7pfSi/lWput0KEdBStkEnTJFE8=");
+var urlencoded = new URLSearchParams();
+var requestOptions = {
   method: 'POST',
   headers: myHeaders,
   body: urlencoded,
   redirect: 'follow'
 };
+fetch("https://developers.zomato.com/api/v2.1/search?count=100&lat=33.7490&lon=-84.3880&radius=35&start=20", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+
 const fetchRestaurants = () => {
     fetch(proxy + "https://worldwide-restaurants.p.rapidapi.com/search", requestOptions)
     .then(response => response.json())
@@ -94,7 +93,7 @@ const fetchRestaurants = () => {
 //     myMap.addLayer(rMarkers);
 
 // } 
-fetchRestaurants()
+// fetchRestaurants()
 
 
 

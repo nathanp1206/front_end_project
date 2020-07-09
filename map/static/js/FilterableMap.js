@@ -11,9 +11,9 @@
 
 // Initialize all of the LayerGroups we'll be using
 var layers = {
-  ZIPCODES: new L.LayerGroup(),
-  CRIMES: new L.LayerGroup(),
-  SCHOOLS: new L.LayerGroup()
+//   ZIPCODES: new L.LayerGroup(),
+//   CRIMES: new L.LayerGroup(),
+//   SCHOOLS: new L.LayerGroup()
 };
 
 // Create the map with our layers
@@ -21,24 +21,24 @@ var myMap = L.map("map", {
     center: [33.7490, -84.3880],
     zoom: 11,
     layers: [
-        layers.ZIPCODES,
-        layers.CRIMES,
-        layers.SCHOOLS
+        // layers.ZIPCODES,
+        // layers.CRIMES,
+        // layers.SCHOOLS
     ]
 });
 
-// Add our 'lightmap' tile layer to the map
+// Add our 'baselayer' to the map
 baseLayer.addTo(myMap);
 
 // Create an overlays object to add to the layer control
 var overlays = {
-  "ZipCodes w/ MLP": layers.ZIPCODES,
-  "Crimes": layers.CRIMES,
-  "Schools": layers.SCHOOLS
+//   "ZipCodes w/ MLP": layers.ZIPCODES,
+//   "Crimes": layers.CRIMES,
+//   "Schools": layers.SCHOOLS
 };
 
 // Create a control for our layers, add our overlay layers to it
-L.control.layers(null, overlays).addTo(myMap);
+let controlObject = L.control.layers(null, overlays).addTo(myMap);
 
 // Create a legend to display information about our map
 var info = L.control({
@@ -59,7 +59,7 @@ info.addTo(myMap);
 var link = "static/data/crime_data.csv"
 // heat is low, can add more crime when I have a chance. 
 d3.csv(link, function(crimes) {
-  
+    
     var heatArray = [];
   
     for (var i = 0; i < crimes.length; i++) {
@@ -73,11 +73,133 @@ d3.csv(link, function(crimes) {
       radius: 20,
       blur: 35
     }).addTo(myMap)
-    // }).addTo(layers[CRIMES]);
+    // }).addTo(layers[new L.LayerGroup()]);
     // layers.CRIMES = heat
-  
+    // overlays.crimes = heat
+    // L.control.layers(null, {"Crimes": heat}).addTo(myMap);
+    controlObject.addOverlay(heat,"Crime")
   });
 
+//   ////////////////////////////////////////////////////////////
+  var link = "static/data/mlp.geojson"
+ 
+  var geojson;
+  
+  // Grab data with d3
+  d3.json(link, function(data) {
+  
+    // Create a new choropleth layer
+    geojson = L.choropleth(data, {
+  
+      // Define what  property in the features to use
+      valueProperty: "MedianListingPrice",
+  
+      // Set color scale
+      scale: ["#ffffb2", "#009700"],
+  
+      // Number of breaks in step range
+      steps: 10,
+  
+      // q for quartile, e for equidistant, k for k-means
+      mode: "q",
+      style: {
+        // Border color
+        color: "#fff",
+        weight: 1,
+        fillOpacity: 0.8
+      },
+  
+      // Binding a pop-up to each layer
+      onEachFeature: function(feature, layer) {
+        layer.bindPopup("Zip Code: " + feature.properties.ZipCode + "<br>Median Listing Price:<br>" +
+          "$" + feature.properties.MedianListingPrice);
+      }
+    }).addTo(myMap);
+    controlObject.addOverlay(geojson,"MedianListingPrice")
+
+//   ///////////////////////
+    // Set up the legend
+    var legend = L.control({ position: "bottomright" });
+    legend.onAdd = function() {
+      var div = L.DomUtil.create("div", "info legend");
+      var limits = geojson.options.limits;
+      var colors = geojson.options.colors;
+      var labels = [];
+  
+      // Add min & max
+      var legendInfo = "<h1>ZipCode Median Listing Price</h1>" +
+        "<div class=\"labels\">" +
+          "<div class=\"min\">" + limits[0] + "</div>" +
+          "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
+        "</div>";
+  
+      div.innerHTML = legendInfo;
+  
+      limits.forEach(function(limit, index) {
+        labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
+      });
+  
+      div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+      return div;
+    };
+  
+    // Adding legend to the map
+    legend.addTo(myMap);
+  });
+
+  const fetchSchools2 = () => {
+    pages = [1, 2, 3, 4, 5]
+    let promises = []
+    pages.forEach((page) => {
+        url = `https://api.schooldigger.com/v1.2/schools?st=GA&city=Atlanta&page=${page}&perPage=50&appID=1a0adc5f&appKey=${SCHOOL_KEY}`
+        promises.push(fetch(url).then(resp => resp.json()))
+    })
+    Promise.all(promises)
+    //  map loading... 
+    .then(filterData)
+}
+
+// var edData
+const filterData = (data) => {
+    // let masterSchoolList = data.map(datum => datum.schoolList)
+    var masterSchoolList = []
+    data.forEach((datum) => {
+        masterSchoolList = [...masterSchoolList, ...datum.schoolList]
+    })
+    console.log(masterSchoolList)
+    buildEdLayer(masterSchoolList)
+    // edData = masterSchoolList
+}
+
+const buildEdLayer = (edData) => {
+let edMarkers = L.markerClusterGroup();
+    edData.forEach((school, i) => {
+        if (school.address.latLong.latitude && school.address.latLong.longitude) {
+            let ed_lat = school.address.latLong.latitude; 
+            let ed_lng = school.address.latLong.longitude;
+            let rank = "N/A"
+            for (i=0;i<schoolDataList.length; i++) {
+                if (schoolDataList[i].schoolName == school.schoolName) {
+                    rank = schoolDataList[i].rank
+                    break
+                }
+                else 
+                    {continue}
+            }
+            let type = school.schoolLevel;
+            edMarkers.addLayer(L.marker([ed_lat, ed_lng])
+            .bindPopup("School Name:" + school.schoolName + "<br>Ranking:" + rank + "<br>School Type:" + type));
+            // L.marker([ed_lat, ed_lng]).bindPopup(school.schoolName).addTo(myMap);
+        //     layer.bindPopup("Zip Code: " + feature.properties.ZipCode + "<br>Median Listing Price:<br>" +
+        // "$" + feature.properties.MedianListingPrice);
+        }
+    })
+    // Add our marker cluster layer to the map
+    // console.log("here")
+    myMap.addLayer(edMarkers);
+    controlObject.addOverlay(edMarkers,"Schools")
+}
+fetchSchools2()
 
 
 
@@ -85,14 +207,3 @@ d3.csv(link, function(crimes) {
 
 
 
-// // Update the legend's innerHTML with the last updated time and station count
-// function updateLegend(time, stationCount) {
-//   document.querySelector(".legend").innerHTML = [
-//     "<p>Updated: " + moment.unix(time).format("h:mm:ss A") + "</p>",
-//     "<p class='out-of-order'>Out of Order Stations: " + stationCount.OUT_OF_ORDER + "</p>",
-//     "<p class='coming-soon'>Stations Coming Soon: " + stationCount.COMING_SOON + "</p>",
-//     "<p class='empty'>Empty Stations: " + stationCount.EMPTY + "</p>",
-//     "<p class='low'>Low Stations: " + stationCount.LOW + "</p>",
-//     "<p class='healthy'>Healthy Stations: " + stationCount.NORMAL + "</p>"
-//   ].join("");
-// }
