@@ -23,8 +23,6 @@ d3.csv(link, function(crimes) {
     var heatArray = [];
   
     for (var i = 0; i < crimes.length; i++) {
-        var lat = crimes[i].Latitude;
-        var lng = crimes[i].Longitude;
   
       if (crimes[i]) {
         heatArray.push([crimes[i].Latitude, [crimes[i].Longitude]]);
