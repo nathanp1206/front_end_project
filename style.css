@@ -346,7 +346,7 @@
     background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 10000;
   }
   
   /* Links inside the dropdown */
@@ -367,6 +367,8 @@
     display: flex;
     justify-content: space-between;
     padding: 0% 10% 0% 10%;
+    margin-top: 2%;
+    flex-wrap: wrap;
   }
 
   .sign-buttons {
@@ -485,7 +487,7 @@
     width: 100%;
     height: 100%;
     max-width: 205vh;
-    max-height: 70vh;
+    max-height: 85vh;
     /* border: 1px dotted black; */
     display: flex;
     justify-content: center;
@@ -493,8 +495,17 @@
 }
 
 .title {
+  display: flex;
+  justify-content: center;
+}
+
+.title1 {
     display: flex;
     justify-content: center;
+    margin: 5px 0px 0px 0px;
+    padding: 5px 0px 0px 0px;
+    max-height: 3vh;
+    height: 60%;
 }
 
 .input5:hover {
@@ -535,8 +546,8 @@
 }
 
 .pop-up {
-  display: none;
-  /* display: flex; */
+  /* display: none; */
+  display: flex;
   border: solid 1px black;
   max-width: 205vh;
   max-height: 80vh;
