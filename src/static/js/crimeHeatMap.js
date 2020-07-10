@@ -15,7 +15,7 @@ var myMap = L.map("map", {
 
 
 var link = "static/data/crime_data.csv"
-
+// heat is low, can add more crime when I have a chance. 
 d3.csv(link, function(crimes) {
 
     console.log(crimes);
@@ -23,8 +23,6 @@ d3.csv(link, function(crimes) {
     var heatArray = [];
   
     for (var i = 0; i < crimes.length; i++) {
-        var lat = crimes[i].Latitude;
-        var lng = crimes[i].Longitude;
   
       if (crimes[i]) {
         heatArray.push([crimes[i].Latitude, [crimes[i].Longitude]]);
