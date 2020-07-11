@@ -1,5 +1,7 @@
 // using the following global variables created from the loadData script
 var mapData;
+var test; // strictly for testing purposes
+
 // array of objects: each zip code will be an object in the array
 // key value pairs for the following: ed ranking, mlp ranking, crime ranking, combined ranking
 const zipRanker = (preferences=0) => {
@@ -155,60 +157,58 @@ const zipRanker = (preferences=0) => {
     mlpRanker()
     const combinedRanker = () => {
         let ranks;
-        for (i=0; i<1;i++) {
+        for (i=0; i<mapData.length;i++) {
             if (mapData[i].mlpRank == "N/A" && mapData[i].edRank == "N/A" && mapData[i].crimeRank == "N/A") {mapData[i]["combinedRank"] = "N/A"}
             else {
                 ranks = []
                 ranks.push(mapData[i].crimeRank)
                 ranks.push(mapData[i].edRank)
                 ranks.push(mapData[i].mlpRank)
-                console.log(ranks)
                 // AVERAGE the rankings
                 let rankTotal = 0
-        //         for (j=0;j<ranks.length;x++) {
-        //             // DEBUG, always defaults to 5
-        //             switch(true) {
-        //                 case rank == "A":
-        //                 rankTotal+=5
-        //                 break;
-        //                 case rank == "B":
-        //                 rankTotal+=4
-        //                 break;
-        //                 case rank == "C":
-        //                 rankTotal+=3
-        //                 break;
-        //                 case rank == "D":
-        //                 rankTotal+=2
-        //                 break;
-        //                 case rank == "F":
-        //                 rankTotal+=1
-        //                 break;
-        //                 default:
-        //                     rankTotal+=0
-        //             };
-        //         };
-        //         rankNotNa = ranks.filter(rank => rank !== "N/A")
-        //         rankTotal = rankTotal/(rankNotNa.length)
-        //         console.log(rankTotal)
-        //         switch(true) {
-        //             case rankTotal > 12:
-        //             mapData[i]["combinedRank"] = "A"
-        //             break;
-        //             case rankTotal > 9:
-        //             mapData[i]["combinedRank"] = "B"
-        //             break;
-        //             case rankTotal > 6:
-        //             mapData[i]["combinedRank"] = "C"
-        //             break;
-        //             case rankTotal > 3:
-        //             mapData[i]["combinedRank"] = "D"
-        //             break;
-        //             default:
-        //                 mapData[i]["combinedRank"] = "F"
-        //         };
+                for (j=0;j<ranks.length;j++) {
+                    switch(true) {
+                        case ranks[j] == "A":
+                        rankTotal+=5
+                        break;
+                        case ranks[j] == "B":
+                        rankTotal+=4
+                        break;
+                        case ranks[j] == "C":
+                        rankTotal+=3
+                        break;
+                        case ranks[j] == "D":
+                        rankTotal+=2
+                        break;
+                        case ranks[j] == "F":
+                        rankTotal+=1
+                        break;
+                        default:
+                            rankTotal+=2
+                    };
+                };
+                validRankings = ranks.filter(rank => rank !== "N/A")
+                rankTotal = rankTotal/(validRankings.length)
+                switch(true) {
+                    case rankTotal > 8:
+                    mapData[i]["combinedRank"] = "A"
+                    break;
+                    case rankTotal > 4:
+                    mapData[i]["combinedRank"] = "B"
+                    break;
+                    case rankTotal > 2:
+                    mapData[i]["combinedRank"] = "C"
+                    break;
+                    case rankTotal > 1:
+                    mapData[i]["combinedRank"] = "D"
+                    break;
+                    default:
+                        mapData[i]["combinedRank"] = "F"
+                };
             };
         };
-    }
+        rankerMap()
+    };
     // combinedRanker either has an infinite loop or some other script looping error. find it.
     combinedRanker()
 };
