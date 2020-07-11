@@ -15,8 +15,8 @@ var myMap = L.map("map", {
 
   // Use this link to get the geojson data.
   // var link = "static/data/smaller_map.geojson";
-  var link = "static/data/mlp.geojson"
-  
+var link = "static/data/mlp.geojson"
+
 // Grabbing our GeoJSON data..
 d3.json(link, function(data) {
   // Creating a geoJSON layer with the retrieved data
@@ -27,7 +27,7 @@ d3.json(link, function(data) {
         color: "grey",
         fillColor: "blue",
         fillOpacity: 0.05,
-        weight: 0.5
+        weight: 1.0
       };
     },
     // Called on each feature
@@ -54,10 +54,8 @@ d3.json(link, function(data) {
         }
       });
       // Giving each feature a pop-up with information pertinent to it
-      layer.bindPopup("<h3>" + feature.properties.ZipCode);
+      layer.bindPopup("<h1>" + feature.properties.ZipCode);
 
-      // create functon that grabs all zipCode relevant data and caches it inside an object
-      
     }
   }).addTo(myMap);
 });

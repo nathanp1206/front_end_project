@@ -1,3 +1,4 @@
+
 // Create the tile layer that will be the background of our map
   // Adding tile layer
   var baseLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -10,32 +11,20 @@
   });
 
 // Initialize all of the LayerGroups we'll be using
-var layers = {
-//   ZIPCODES: new L.LayerGroup(),
-//   CRIMES: new L.LayerGroup(),
-//   SCHOOLS: new L.LayerGroup()
-};
+var layers = {};
 
 // Create the map with our layers
 var myMap = L.map("map", {
     center: [33.7490, -84.3880],
     zoom: 11,
-    layers: [
-        // layers.ZIPCODES,
-        // layers.CRIMES,
-        // layers.SCHOOLS
-    ]
+    layers: []
 });
 
 // Add our 'baselayer' to the map
 baseLayer.addTo(myMap);
 
 // Create an overlays object to add to the layer control
-var overlays = {
-//   "ZipCodes w/ MLP": layers.ZIPCODES,
-//   "Crimes": layers.CRIMES,
-//   "Schools": layers.SCHOOLS
-};
+var overlays = {};
 
 // Create a control for our layers, add our overlay layers to it
 let controlObject = L.control.layers(null, overlays).addTo(myMap);
@@ -101,7 +90,6 @@ d3.json(link, function(data) {
 
 
 // crimes
-
 var link = "static/data/crime_data.csv"
 // heat is low, can add more crime when I have a chance. 
 d3.csv(link, function(crimes) {
@@ -212,7 +200,7 @@ const filterData = (data) => {
     data.forEach((datum) => {
         masterSchoolList = [...masterSchoolList, ...datum.schoolList]
     })
-    console.log(masterSchoolList)
+    // console.log(masterSchoolList)
     buildEdLayer(masterSchoolList)
     // edData = masterSchoolList
 }
@@ -246,3 +234,10 @@ let edMarkers = L.markerClusterGroup();
     controlObject.addOverlay(edMarkers,"Schools")
 }
 fetchSchools2()
+
+
+
+
+
+
+

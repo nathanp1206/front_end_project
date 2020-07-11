@@ -1,7 +1,7 @@
 
 // to be called before map handling: generates all the data required for visualization
 var mapData = [];
-var test;
+
 const loadGeoData = (data) => {
     for (i=0;i<data.features.length;i++) {
         newZipcode = {"zipCode": data.features[i].properties.ZipCode, "medianListingPrice": data.features[i].properties.MedianListingPrice, "geometry": data.features[i].geometry};
@@ -21,12 +21,12 @@ const loadEdata = (data) => {
     data.forEach((datum) => {
         masterSchoolList = [...masterSchoolList, ...datum.schoolList]
     });
-    // console.log(masterSchoolList)
-    // test = masterSchoolList
+
     for (i=0;i<mapData.length;i++) {
         let zip = mapData[i].zipCode
         mapData[i]["schools"] = masterSchoolList.filter(school => school.address.zip == zip)
     };
+    zipRanker()
 };
 
 // debug. works in console but not here...
