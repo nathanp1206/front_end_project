@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova</title>
+    <title>Nova zip comparisons</title>
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -34,23 +34,31 @@
 </head>
 
 <body>
-
+  <div class="title1">
+    <form method="get" action="../index.html">
+        <button>Home</button>
+    </form>
+</div>
+  <div class = "header">
+    <h1>Compare Zipcode information</h1>
+    <h3>Use the dropdowns below to explore zipcodes in greater detail</h3>
+  </div>
+  <div class = "bigContainer">
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>Zipcode comparison</h1>
-        <p>Use the interactive charts below to explore zipcodes in greater detail</p>
+        
       </div>
     </div>
     <div class="row">
       <div class="col-md-2">
         <div class="well">
           <h5>Zipcode:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+          <select id="selDataset"></select>
         </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Zipcode Basic Info</h3>
+            <h3 class="panel-title">Basic Info</h3>
           </div>
           <div id="sample-metadata" class="panel-body"></div>
         </div>
@@ -69,6 +77,41 @@
     </div>
   </div>
   
+  <div class="container2">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="well">
+          <h5>Zipcode:</h5>
+          <select id="selDataset2"></select>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Basic Info</h3>
+          </div>
+          <div id="sample-metadata2" class="panel-body"></div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div id="bar"></div>
+      </div>
+      <div class="col-md-5">
+        <div id="gauge"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="bubble"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript" src="static/js/zipCompCharts.js"></script>
+
   <!-- API key -->
   <script type="text/javascript" src="static/js/config.js"></script>
 
