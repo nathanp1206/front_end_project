@@ -209,6 +209,5 @@ const zipRanker = (preferences=0) => {
         };
         rankerMap()
     };
-    // combinedRanker either has an infinite loop or some other script looping error. find it.
     combinedRanker()
 };
