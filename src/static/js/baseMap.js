@@ -15,67 +15,50 @@ var myMap = L.map("map", {
 
   // Use this link to get the geojson data.
   // var link = "static/data/smaller_map.geojson";
-  var link = "static/data/mlp.geojson"
-
-  // Our style object
-// var mapStyle = {
-//   color: "white",
-//   fillColor: "pink",
-//   fillOpacity: 0.5,
-//   weight: 1.5
-// };
-  
-// // Grabbing our GeoJSON data..
-// d3.json(link, function(data) {
-//   // Creating a geoJSON layer with the retrieved data
-//   L.geoJson(data, {
-//     // Passing in our style object
-//     style: mapStyle
-//   }).addTo(myMap);
-// });
+var link = "static/data/mlp.geojson"
 
 // Grabbing our GeoJSON data..
-// d3.json(link, function(data) {
-//   // Creating a geoJSON layer with the retrieved data
-//   L.geoJson(data, {
-//     // Style each feature (in this case a neighborhood)
-//     style: () => {
-//       return {
-//         color: "white",
-//         fillColor: "pink",
-//         fillOpacity: 0.5,
-//         weight: 1.5
-//       };
-//     },
-//     // Called on each feature
-//     onEachFeature: function(feature, layer) {
-//       // Set mouse events to change map styling
-//       layer.on({
-//         // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
-//         mouseover: function(event) {
-//           layer = event.target;
-//           layer.setStyle({
-//             fillOpacity: 0.9
-//           });
-//         },
-//         // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
-//         mouseout: function(event) {
-//           layer = event.target;
-//           layer.setStyle({
-//             fillOpacity: 0.5
-//           });
-//         },
-//         // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
-//         click: function(event) {
-//           myMap.fitBounds(event.target.getBounds());
-//         }
-//       });
-//       // Giving each feature a pop-up with information pertinent to it
-//       layer.bindPopup("<h1>" + feature.properties.ZipCode + "</h1> <hr> <h2>" + `$${feature.properties.MedianListingPrice}` + "</h2>");
+d3.json(link, function(data) {
+  // Creating a geoJSON layer with the retrieved data
+  L.geoJson(data, {
+    // Style each feature (in this case a neighborhood)
+    style: () => {
+      return {
+        color: "grey",
+        fillColor: "blue",
+        fillOpacity: 0.05,
+        weight: 1.0
+      };
+    },
+    // Called on each feature
+    onEachFeature: function(feature, layer) {
+      // Set mouse events to change map styling
+      layer.on({
+        // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+        mouseover: function(event) {
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.1
+          });
+        },
+        // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+        mouseout: function(event) {
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.05
+          });
+        },
+        // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
+        click: function(event) {
+          myMap.fitBounds(event.target.getBounds());
+        }
+      });
+      // Giving each feature a pop-up with information pertinent to it
+      layer.bindPopup("<h1>" + feature.properties.ZipCode);
 
-//     }
-//   }).addTo(myMap);
-// });
+    }
+  }).addTo(myMap);
+});
 
 
 // base layer such that zip code calls function that pulls all of the relevant information from data:

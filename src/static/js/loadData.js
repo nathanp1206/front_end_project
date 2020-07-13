@@ -1,3 +1,4 @@
+
 // to be called before map handling: generates all the data required for visualization
 var mapData = [];
 
@@ -70,3 +71,4 @@ const requestCrime = () => {
 }
 
 requestGEO()
+
