@@ -74,9 +74,9 @@ const rankerMap = () => {
         //   }
         });
         // Giving each feature a pop-up with information pertinent to it
-        layer.bindPopup("<h3>" + feature.properties.ZipCode + "</h3> <hr> <h3> Rating: " + (mapData.filter(zip => zip.zipCode == feature.properties.ZipCode)[0].combinedRank) + 
-        "</h3> <hr> <h3> Crime Rating:" + (mapData.filter(zip => zip.zipCode == feature.properties.ZipCode)[0].crimeRank) + "</h3> <hr> <h3> Education Rating:" +
-        (mapData.filter(zip => zip.zipCode == feature.properties.ZipCode)[0].edRank) + "</h3> <hr> <h3> Real Estate Pricing Rating:" + 
+        layer.bindPopup("<h5>" + feature.properties.ZipCode + "</h5> <hr> <h5> Rating: " + (mapData.filter(zip => zip.zipCode == feature.properties.ZipCode)[0].combinedRank) + 
+        "</h5> <hr> <h5> Crime Rating:" + (mapData.filter(zip => zip.zipCode == feature.properties.ZipCode)[0].crimeRank) + "</h5> <hr> <h5> Education Rating:" +
+        (mapData.filter(zip => zip.zipCode == feature.properties.ZipCode)[0].edRank) + "</h5> <hr> <h5> Real Estate Pricing Rating:" + 
         (mapData.filter(zip => zip.zipCode == feature.properties.ZipCode)[0].mlpRank));
   
       }
