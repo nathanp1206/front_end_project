@@ -43,14 +43,16 @@
                 <input class="input1" type="tel" placeholder=" Only zip codes" max="5" name="search"/> 
                 <button class="input" type="submit"><i class="fa fa-search"></i></button>
             </form>
-            <div>
-                <div class="dropdown">
+            <!-- <div> -->
+                <!-- <div class="dropdown">
                     <button class="dropbtn">Price</button>
                     <div class="dropdown-content">
-                        <a href="#" id="0">$0+</a>
-                        <a href="#" id="100000">$100,000+</a> 
-                        <a href="#" id="200000">$200,000+</a>
-                        <a href="#" id="400000">$400,000+</a>
+                        <a href="#"><input type="checkbox" id="A" name="A" value="A">A</a>
+                        <a href="#"><input type="checkbox" id="B" name="B" value="B">B</a>
+                        <a href="#"><input type="checkbox" id="C" name="C" value="C">C</a>
+                        <a href="#"><input type="checkbox" id="D" name="D" value="D">D</a>
+                        <a href="#"><input type="checkbox" id="F" name="F" value="F">F</a>
+                        <input class="input5" type="submit" value="Submit">
                     </div>
                 </div>
             </div>
@@ -58,11 +60,10 @@
                 <button class="dropbtn">Education</button>
                 <div class="dropdown-content">
                     <form>
-                        <a href="#"><input type="checkbox" id="A" name="A" value="A">A+</a>
-                        <a href="#"><input type="checkbox" id="B" name="B" value="B">B+</a>
-                        <a href="#"><input type="checkbox" id="C" name="C" value="C">C+</a>
-                        <a href="#"><input type="checkbox" id="D" name="D" value="D">D+</a>
-                        <a href="#"><input type="checkbox" id="F" name="F" value="F">F+</a>
+                        <a href="#"><input type="checkbox" id="A" name="A" value="A">A</a>
+                        <a href="#"><input type="checkbox" id="B" name="B" value="B">B</a>
+                        <a href="#"><input type="checkbox" id="C" name="C" value="C">C</a>
+                        <a href="#"><input type="checkbox" id="D" name="D" value="D">D</a>
                         <input class="input5" type="submit" value="Submit">
                     </form>
                 </div>
@@ -71,20 +72,20 @@
                 <button class="dropbtn">Crime</button>
                 <div class="dropdown-content">
                     <form>
-                        <a href="#"><input type="checkbox" id="A" name="A" value="A">A+</a>
-                        <a href="#"><input type="checkbox" id="B" name="B" value="B">B+</a>
-                        <a href="#"><input type="checkbox" id="C" name="C" value="C">C+</a>
-                        <a href="#"><input type="checkbox" id="D" name="D" value="D">D+</a>
-                        <a href="#"><input type="checkbox" id="F" name="F" value="F">F+</a>
+                        <a href="#"><input type="checkbox" id="A" name="A" value="A">A</a>
+                        <a href="#"><input type="checkbox" id="B" name="B" value="B">B</a>
+                        <a href="#"><input type="checkbox" id="C" name="C" value="C">C</a>
+                        <a href="#"><input type="checkbox" id="D" name="D" value="D">D</a>
+                        <a href="#"><input type="checkbox" id="F" name="F" value="F">F</a>
                         <input class="input5" type="submit" value="Submit">
                     </form>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- MAPS GO HERE >>>> -->
     <div class="map" id="map">
-    <!-- Icons -->
+     <!-- Icons -->
     <!-- <script src="static/js/leaflet.extra-markers.min.js"></script> -->
     <!-- MomentJS -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
@@ -100,33 +101,40 @@
     <script type="text/javascript" src="static/js/choropleth.js"></script>
     <!-- API key -->
     <script type="text/javascript" src="static/js/config.js"></script>
-    <script type="text/javascript" src="static/js/schoolDataFile.js"></script>
+    
 
 
-    <!-- JS  -->
+      <!-- JS  -->
+    <!-- <script type="text/javascript" src="static/js/baseMap.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/zipMap.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/advancedMap.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/educationMap.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/crimeHeatMap.js"></script> -->
     <!-- <script type="text/javascript" src="static/js/restaurantsMap.js"></script> -->
     <script type="text/javascript" src="static/js/FilterableMap.js"></script>
+    <script type="text/javascript" src="static/js/rankerMap.js"></script>
+    <script type="text/javascript" src="static/js/zipCompCharts.js" type = 'module'></script>
     <!-- Leaflet heatmap plugin-->
     <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
+    <!-- zip ranking algorithm -->
+    <script type="text/javascript" src="static/js/zipRanker.js"></script>
+    <!-- data files -->
+    <script type="text/javascript" src="static/js/schoolDataFile.js"></script>
+    <script type="text/javascript" src="static/js/loadData.js"></script>
     <!-- restaraunt stuff -->
     <!-- <script type="module" src="./src/app.js"></script> -->
     </div>
     <div class="pop-up">
         <div class="popups">
+            <div>
                 <img class="popup-image" src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" alt="Airplane">
             </div>
-            <div class="popup-text" id="map-info">
+            <div class="popup-text"> 
                 This is some test text to make sure everything works as it is supposed to and then I will remove it and input text using javascript. I am trying to get this crap to work and hopefully it will. I think this will look really cool once it is complete
             </div>
         </div>
         <div class="charts">
             <div class="chart" id="edu">
-                <script>
-                </script>
 
             </div>
             <div class="chart" id="crime">

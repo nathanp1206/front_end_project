@@ -1,3 +1,4 @@
+
 // Create the tile layer that will be the background of our map
   // Adding tile layer
   var baseLayer = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -10,32 +11,20 @@
   });
 
 // Initialize all of the LayerGroups we'll be using
-var layers = {
-//   ZIPCODES: new L.LayerGroup(),
-//   CRIMES: new L.LayerGroup(),
-//   SCHOOLS: new L.LayerGroup()
-};
+var layers = {};
 
 // Create the map with our layers
 var myMap = L.map("map", {
     center: [33.7490, -84.3880],
     zoom: 11,
-    layers: [
-        // layers.ZIPCODES,
-        // layers.CRIMES,
-        // layers.SCHOOLS
-    ]
+    layers: []
 });
 
 // Add our 'baselayer' to the map
 baseLayer.addTo(myMap);
 
 // Create an overlays object to add to the layer control
-var overlays = {
-//   "ZipCodes w/ MLP": layers.ZIPCODES,
-//   "Crimes": layers.CRIMES,
-//   "Schools": layers.SCHOOLS
-};
+var overlays = {};
 
 // Create a control for our layers, add our overlay layers to it
 let controlObject = L.control.layers(null, overlays).addTo(myMap);
@@ -54,8 +43,53 @@ info.onAdd = function() {
 info.addTo(myMap);
 
 // create layers...
-// crimes
+var link = "static/data/mlp.geojson"
 
+// Grabbing our GeoJSON data..
+d3.json(link, function(data) {
+  // Creating a geoJSON layer with the retrieved data
+  L.geoJson(data, {
+    // Style each feature (in this case a neighborhood)
+    style: () => {
+      return {
+        color: "grey",
+        fillColor: "blue",
+        fillOpacity: 0.05,
+        weight: 1.0
+      };
+    },
+    // Called on each feature
+    onEachFeature: function(feature, layer) {
+      // Set mouse events to change map styling
+      layer.on({
+        // When a user's mouse touches a map feature, the mouseover event calls this function, that feature's opacity changes to 90% so that it stands out
+        mouseover: function(event) {
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.1
+          });
+        },
+        // When the cursor no longer hovers over a map feature - when the mouseout event occurs - the feature's opacity reverts back to 50%
+        mouseout: function(event) {
+          layer = event.target;
+          layer.setStyle({
+            fillOpacity: 0.05
+          });
+        },
+        // When a feature (neighborhood) is clicked, it is enlarged to fit the screen
+        click: function(event) {
+          myMap.fitBounds(event.target.getBounds());
+        }
+      });
+      // Giving each feature a pop-up with information pertinent to it
+      layer.bindPopup("<h1>" + feature.properties.ZipCode);
+
+    }
+  }).addTo(myMap);
+});
+
+
+// crimes
 var link = "static/data/crime_data.csv"
 // heat is low, can add more crime when I have a chance. 
 d3.csv(link, function(crimes) {
@@ -129,8 +163,8 @@ d3.csv(link, function(crimes) {
       // Add min & max
       var legendInfo = "<h1>ZipCode Median Listing Price</h1>" +
         "<div class=\"labels\">" +
-          "<div class=\"min\">" + limits[0] + "</div>" +
-          "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
+          "<div class=\"min\">" + "$" + limits[0] + "</div>" +
+          "<div class=\"max\">" + "$" + limits[limits.length - 1] + "</div>" +
         "</div>";
   
       div.innerHTML = legendInfo;
@@ -166,7 +200,7 @@ const filterData = (data) => {
     data.forEach((datum) => {
         masterSchoolList = [...masterSchoolList, ...datum.schoolList]
     })
-    console.log(masterSchoolList)
+    // console.log(masterSchoolList)
     buildEdLayer(masterSchoolList)
     // edData = masterSchoolList
 }
