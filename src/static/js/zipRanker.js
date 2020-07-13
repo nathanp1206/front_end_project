@@ -211,7 +211,7 @@ const zipRanker = (preferences=0) => {
         mapDataStringified = JSON.stringify(mapData)
         // console.log(mapDataStringified) - above command works
         localStorage.setItem("data", mapDataStringified)
-        console.log(localStorage.getItem("data"))
+        // console.log(localStorage.getItem("data")) this works too
         rankerMap()
     };
     combinedRanker()

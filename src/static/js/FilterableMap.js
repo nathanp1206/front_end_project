@@ -161,7 +161,7 @@ d3.csv(link, function(crimes) {
       var labels = [];
   
       // Add min & max
-      var legendInfo = "<h1>ZipCode Median Listing Price</h1>" +
+      var legendInfo = "<h3>ZipCode Median Listing Price</h3>" +
         "<div class=\"labels\">" +
           "<div class=\"min\">" + limits[0] + "</div>" +
           "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
