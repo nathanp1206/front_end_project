@@ -207,6 +207,11 @@ const zipRanker = (preferences=0) => {
                 };
             };
         };
+        // turn mapData into a string and save as JSON on local storage
+        mapDataStringified = JSON.stringify(mapData)
+        // console.log(mapDataStringified) - above command works
+        localStorage.setItem("data", mapDataStringified)
+        console.log(localStorage.getItem("data"))
         rankerMap()
     };
     combinedRanker()
