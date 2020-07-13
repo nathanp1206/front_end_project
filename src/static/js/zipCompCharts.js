@@ -77,24 +77,31 @@ const zipComp = () => {
     function getDemographic(zip) {
         document.getElementById("sample-metadata").innerHTML = "";
         let currZip = mapData.filter(val => val.zipCode == zip)[0]
-        console.log(currZip)
         let schoolInfo = "";
         if (currZip.schools.length == 0) {schoolInfo;} 
         else {schoolInfo = currZip.schools.map(school => `<div>${school.schoolName}: ${school.schoolLevel}</div>`).join("")}
+        if (currZip.medianListingPrice == null) {mlpInfo = ''}
+        else {mlpInfo = "Zipcode Home Median Listing Price: " + '$' + currZip.medianListingPrice}
+        if (currZip.crimes.length == 0) {crimeInfo = ''}
+        else {crimeInfo = "Zipcode Crime count: " + currZip.crimes.length}
         var demo = document.querySelector("#sample-metadata");
         // clear the html object
-        demo.innerHTML = schoolInfo
+        demo.innerHTML = schoolInfo + `<hr>` + mlpInfo + `<hr>` + crimeInfo
     };
     function getDemographic2(zip) {
         document.getElementById("sample-metadata2").innerHTML = "";
         let currZip = mapData.filter(val => val.zipCode == zip)[0]
-        console.log(currZip)
         let schoolInfo = "";
         if (currZip.schools.length == 0) {schoolInfo;} 
         else {schoolInfo = currZip.schools.map(school => `<div>${school.schoolName}: ${school.schoolLevel}</div>`).join("")}
+        if (currZip.medianListingPrice == null) {mlpInfo = ''}
+        else {mlpInfo = "Zipcode Home Median Listing Price: " + '$' + currZip.medianListingPrice}
+        if (currZip.crimes.length == 0) {crimeInfo = ''}
+        else {crimeInfo = "Zipcode Crime count: " + currZip.crimes.length}
+
         var demo = document.querySelector("#sample-metadata2");
         // clear the html object
-        demo.innerHTML = schoolInfo
+        demo.innerHTML = schoolInfo + `<hr>` + mlpInfo + `<hr>` + crimeInfo
     };
 
 
