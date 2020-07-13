@@ -400,6 +400,19 @@
       background-size: 100% 125%;
       background-position: center; 
   }
+  
+  .search1 {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    max-height: 75vh;
+    width: 100%;
+    max-width: 205vh;
+    background-image: url("./images/bighouse.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100% 125%;
+    background-position: center; 
+}
 
   .search-form {
     display: flex;
