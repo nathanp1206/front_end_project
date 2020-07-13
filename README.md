@@ -14,11 +14,11 @@ Webpage is active through Github-pages, click on Environments on the side bar, a
 
 #### Build Status/Contributions
 
-Progress and work for Nova is continuous, contributions are welcomed. Future updates will hopefully include an algorithm to predict the best up and coming neighborhoods, locations with the best restaurants and events, better API data connections, a working search bar, drop down menus to better filter the data, flesh out the comparison page, and add full data comparison between zipcodes, and lastly preferences for real estate within the high range.
+Progress and work for Nova is continuous, contributions are welcomed. Future updates will hopefully include an algorithm to predict the best up and coming neighborhoods, locations with the best restaurants and events, better API data connections, a working search bar, drop down menus to better filter the data, flesh out the comparison page, and add full data comparison between zipcodes, and lastly preferences for real estate within the high price range.
 
 ##### Features
 
-Nova featurers the most up to date information for each zipcode.
+Nova features the most up to date information for each zipcode.
 
 ###### API References
 
@@ -32,7 +32,7 @@ MLP2.geojson - Realtor.com
 
 ###### Credits
 
-Thank You to Clint Fleetwood for all your help, patience, and guidance. 
+Thank You to Clint Fleetwood and Ally Brannon for all your help, patience, and guidance. 
 
 
 
