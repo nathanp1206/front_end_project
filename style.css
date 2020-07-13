@@ -498,7 +498,7 @@
 .map {
     width: 100%;
     height: 100%;
-    max-width: 205vh;
+    max-width: 200vh;
     max-height: 85vh;
     /* border: 1px dotted black; */
     display: flex;
@@ -514,7 +514,7 @@
 .title1 {
     display: flex;
     justify-content: center;
-    margin: 5px 0px 0px 0px;
+    margin: 5px 4vh 0px 0px;
     padding: 5px 0px 0px 0px;
     max-height: 3vh;
     height: 60%;
@@ -558,8 +558,8 @@
 }
 
 .pop-up {
-  /* display: none; */
-  display: flex;
+  display: none;
+  /* display: flex; */
   border: solid 1px black;
   max-width: 205vh;
   max-height: 80vh;
@@ -678,4 +678,10 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.top {
+  display: flex; 
+  justify-content: center;
+  flex-direction: row;
 }
