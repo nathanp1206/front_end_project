@@ -8,23 +8,28 @@
 </head>
 <body>
     <div class="toolbar">
+
+        <label class="form-switch">
+            <input type="checkbox" onclick="whiteMode()">
+            <i></i> Dark/Light </label>
+
         <div class="home-button">
             <form method="get" action="index.html">
-                <button class="home">Home</button>
+                <button class="home" id="buttons">Home</button>
             </form>
         </div>
         <div class="title">
             <form method="get" action="index.html">
-                <button>Nova</button>
+                <button id="buttons1">Nova</button>
             </form>
         </div>
         
         <div class="sign-buttons">
             <form method="get" action="src/signup.html">
-                <button class="sign-up">Sign Up</button>
+                <button class="sign-up" id="buttons2">Sign Up</button>
             </form>
             <form method="get" action="src/signin.html">
-                <button class="sign-in">Sign In</button>
+                <button class="sign-in" id="buttons3">Sign In</button>
             </form>
         </div>
         
@@ -37,7 +42,7 @@
         </form>
     </div>
     <div class="flex-columns">
-        <div class="columns">
+        <!-- <div class="columns">
             <div class="text-flex">
                 Search by Crime
             </div>
@@ -60,10 +65,25 @@
             <div class="picture">
                 <img class="image3" src="images/edu.png" alt="Education">
             </div>
-        </div>
+        </div> -->
     </div>
-    <script src="src/app.js"></script>
-    <script type='text/javascript'>
+    <script>
+        function whiteMode() {
+            var element = document.body;
+            element.classList.toggle("white-mode");
+            var element2 = document.getElementById("buttons");
+            element2.classList.toggle("white-mode");
+            var element3 = document.getElementById("buttons1");
+            element3.classList.toggle("white-mode");
+            var element4 = document.getElementById("buttons2");
+            element4.classList.toggle("white-mode");
+            var element5 = document.getElementById("buttons3");
+            element5.classList.toggle("white-mode");
+            // var element6 = document.getElementById("input1");
+            // element6.style.backgroundColor("white")
+        }
+    </script>
+    <script src="src/app.js" type='text/javascript'>
         var mapData;
     </script>
 </body>

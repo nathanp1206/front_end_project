@@ -33,19 +33,22 @@
 </head>
 <body>
     <div class="top">
+        <label class="form-switch">
+            <input type="checkbox" onclick="whiteMode()">
+            <i></i> Dark/Light</label>
     <div class="title1">
         <form method="get" action="../index.html">
-            <button>Home</button>
+            <button id="buttons">Home</button>
         </form>
     </div>
     <div class="title1">
         <form method="get" action="comparison.html">
-            <button>Compare</button>
+            <button id="buttons1">Compare</button>
         </form>
     </div>
     </div>
     <div>
-        <div class="toolbar">
+        <div class="toolbar1">
             <form class="search-form" method="get" action="">
                 <input class="input1" type="tel" placeholder=" Only zip codes" max="5" name="search"/> 
                 <button class="input" type="submit"><i class="fa fa-search"></i></button>
@@ -152,5 +155,17 @@
             </div>
         </div>
     </div>
+    <script>
+        function whiteMode() {
+            var element = document.body;
+            element.classList.toggle("white-mode");
+            var element2 = document.getElementById("buttons");
+            element2.classList.toggle("white-mode");
+            var element3 = document.getElementById("buttons1");
+            element3.classList.toggle("white-mode");
+            // var element4 = document.getElementsByClassName('legend')
+            // element4.classList.toggle('white-mode');
+        }
+    </script>
 </body>
 </html>
